@@ -14,3 +14,8 @@ export interface OrgUnit {
     }
     displayName: string;
 }
+
+export interface PredictorGroup {
+    id: string;
+    name: string;
+}
