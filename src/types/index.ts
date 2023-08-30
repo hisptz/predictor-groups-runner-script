@@ -1,16 +1,26 @@
 export interface Pager {
-    page: number,
-    total: number
-    pageSize: number;
-    nextPage?: string;
-    pageCount: number;
+  page: number;
+  total: number;
+  pageSize: number;
+  nextPage?: string;
+  pageCount: number;
 }
 
 export interface OrgUnit {
-    id: string;
-    geometry: {
-        type: string;
-        coordinates: number[]
-    }
-    displayName: string;
+  id: string;
+  geometry: {
+    type: string;
+    coordinates: number[];
+  };
+  displayName: string;
+}
+
+export interface PredictorGroup {
+  id: string;
+  name: string;
+}
+
+export interface DateIntervals {
+  startDate: string;
+  endDate: string;
 }
