@@ -43,19 +43,20 @@ export function getDateIntervalsForPredictorEvaluation(
 ): Array<DateIntervals> {
   const defaultStartDate = "2000-01-01";
 
-  const start = startDate ? DateTime.fromISO(startDate) : DateTime.now();
-  const end = endDate
-    ? DateTime.fromISO(endDate)
-    : DateTime.fromFormat(defaultStartDate, "YYYY-MM-DD");
+  let start = startDate
+    ? DateTime.fromISO(startDate)
+    : DateTime.fromISO(defaultStartDate);
 
-  const dataIntervealsForEvaluation = [];
+  let end = endDate ? DateTime.fromISO(endDate) : DateTime.now();
+
+  const dataIntervalsForEvaluation = [];
   let current = start.startOf("month");
 
   while (current <= end) {
-    dataIntervealsForEvaluation.push(
+    dataIntervalsForEvaluation.push(
       getStartAndEndDates(current.toISODate() ?? "")
     );
     current = current.plus({ months: 1 });
   }
-  return dataIntervealsForEvaluation;
+  return dataIntervalsForEvaluation;
 }
