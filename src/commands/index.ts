@@ -2,21 +2,42 @@ import { Command } from "commander";
 import appDetails from "../../package.json";
 import logger from "../logging";
 import { printDHIS2Info } from "../clients/sysInfo";
+import {
+  getDateIntervalsForPredictorEvaluation,
+  getDefaultLastDateForPredictorEvaluation,
+  getDefaultStartDateForPredictorEvaluation,
+} from "../utils/date";
+import { DateIntervals } from "../types";
+import { initiatePredictorEvaluationProcess } from "../services";
 
 const program = new Command();
 
 program
-  .name("hello-dhis2-script")
-  .description("An example program. Delete this when using the template")
-  .version(appDetails.version);
-
-program
-  .command("say-hi")
-  .option("-n --name <name>", "The name of the user")
-  .action((args) => {
-    const { name } = args ?? {};
-    //Here you can call any of your functions to do what is necessary. Use the args to access the argument object as specified on the options
-    logger.info(`Hello ${name}, Welcome to the somalia-lmis-predictors-script`);
+  .command("generate")
+  .description(
+    "Generate predictor data for all predictor groups monthly in the specified period range, or for the current month if no period range is specified."
+  )
+  .option("-s --startDate <startDate>", "Start date for script coverage")
+  .option("-e --endDate <endDate>", "End date for script coverage")
+  .action(async (args) => {
+    let { startDate, endDate } = args ?? {};
+    let dateIntervals: DateIntervals[] = [];
+    if (!startDate && !endDate) {
+      startDate = getDefaultStartDateForPredictorEvaluation();
+      endDate = getDefaultLastDateForPredictorEvaluation();
+      dateIntervals.push({
+        startDate,
+        endDate,
+      });
+    } else {
+      dateIntervals = getDateIntervalsForPredictorEvaluation(
+        startDate,
+        endDate
+      );
+    }
+    for (const { startDate, endDate } of dateIntervals) {
+      await initiatePredictorEvaluationProcess(startDate, endDate);
+    }
   });
 
 program
