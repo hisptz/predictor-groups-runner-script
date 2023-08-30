@@ -1,6 +1,6 @@
 {
-    "name": "node-script-template",
-    "description": "A node script template for scripts used to interact with DHIS2 API",
+    "name": "somalia-lmis-predictors-script",
+    "description": "A custom script that evaluates the predictors from the specified DHIS2 instance",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
@@ -14,7 +14,7 @@
         "winston": "^3.8.2"
     },
     "scripts": {
-        "start": "ts-node src/index.ts say-hi --name 'HISP Tanzania'",
+        "generate": "ts-node src/index.ts generate",
         "dhis2-info": "ts-node src/index.ts dhis2-info",
         "build": "webpack",
         "postbuild": "./package.sh"
