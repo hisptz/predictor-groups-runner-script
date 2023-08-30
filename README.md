@@ -1,51 +1,93 @@
-# Node Script Template
+# SOMALIA LMIS PREDICTORS SCRIPT
 
 ## Introduction
 
-This is a node script template for scripts used to interact with DHIS2. This template contains the basic setup for a
-script that
-is intended to interact with a DHIS2 instance.
-
-## How to use
-
-Open the script in [github](https://github.com/hisptz/node-script-template) and click use template to get started.
+This is a node script that DHIS2 generates the predictors values for a specific period range. This script is developed to assist with manually Or on a schedule manner generating predictor values by utilizing the predictor groups.
 
 ## Tooling
 
-This template comes with some already configured tools to use for the scripts. Some of the tools are:
+This script uses the following basic packages as basic toolings:
 
 - Commander: This is a tool to improve the script user experience when using the
   script. [Learn more](https://www.npmjs.com/package/commander)
 - Winston: A tool for logging different information within the
   script. [Learn more](https://www.npmjs.com/package/winston)
-- Axios: A HTTP client for accessing DHIS2 API resources or any http
+- Axios: A HTTP client for accessing DHIS2 API resources Or any http
   resources. [Learn more](https://www.npmjs.com/package/axios)
+- Luxon: A javascript package for manipulating time. [Learn more](https://www.npmjs.com/package/luxon)
 
-Most of these tools have the basic configuration and can be used directly
+## Getting started
 
-### Using commander
+### Cloning the project
 
-By default, the commander program has been parsed in the `index.ts` of the script (Hence it is the entrypoint of the
-script). Meaning you can directly use the configured program commands. To name your program, add a description, commands
-and options, edit the `commands/index.ts` file. You can learn how to configure commander
-programs [here](https://www.npmjs.com/package/commander#declaring-program-variable)
+The source code can be clones from [github](https://github.com/hisptz/somalia-lmis-predictors-script) using:
 
-### Using winston logger
+```
+git clone https://github.com/hisptz/somalia-lmis-predictors-script
+```
 
-The winston logger has been configured within the `logging/index.ts` with basic configuration. It is configured to
-create a logs folder and a log file as well as print the logs to the console. To change this behaviour edit the
-configuration in the `logging/index.ts`. For more configuration options
-see [here](https://www.npmjs.com/package/winston#logging).
+### Installing packages
 
-### Using axios
+Packages can be installed using `npm` Or `yarn` using bellow commands:
 
-By default, only the DHIS2 API axios client is configured (see `clients/dhis2`). This axios client is already configured
-with the DHIS2 base URL as well as the basic credentials. For the client usage you can see the example
-in `clients.sysInfo.ts` file (This file was provided as an example. You can delete it with the respective command
-in `commands/index.ts`). If you want to access another HTTP resource, you can create another client file and define your
-client.
+```
+npm install
+```
 
-## Issues
+Or
 
-If you encounter any issues or would like to recommend features open an issue on the
-project's [issues](https://github.com/hisptz/node-script-template/issues) page.
+```
+yarn install
+```
+
+### Setting environment variables
+
+Environment variables can be set by creating `.env` file with contents similar as `.env.example` Or as shown below:
+
+```
+DHIS2_BASE_URL=<url-for-dhis2-instance>
+DHIS2_USERNAME=<dhis2-username>
+DHIS2_PASSWORD=<dhis2-password>
+```
+
+### Running the application
+
+The script can be run using either `npm` Or `yarn` as show bellow:
+
+- Running automatically for the current month:
+
+```
+npm run generate
+```
+
+Or
+
+```
+yarn generate
+```
+
+- Running for a specified range (date format: YYYY-MM-DD)
+
+```
+npm run generate --startDate 2023-01-01 --endDate 2023-06-30
+```
+
+Or
+
+```
+yarn generate --startDate 2023-01-01 --endDate 2023-06-30
+```
+
+## Building
+
+The script can be build using `npm` Or `yarn` as show below:
+
+```
+npm run build
+```
+
+Or
+
+```
+yarn build
+```
