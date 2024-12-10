@@ -1,6 +1,11 @@
+import { config } from "dotenv";
+
 import { dhis2Client } from "../clients";
 import logger from "../logging";
 import { PredictorGroup } from "../types";
+import { filter, isEmpty, map, flattenDeep } from "lodash";
+
+config();
 
 export async function getPredictorGroups(): Promise<PredictorGroup[]> {
   logger.info(`Fetching Predictors groups`);
@@ -19,7 +24,24 @@ export async function getPredictorGroups(): Promise<PredictorGroup[]> {
     logger.info(
       `Successfully fetched ${predictorGroups.length} predictor groups`
     );
-    return predictorGroups;
+
+    const groups = (process.env.PREDICTOR_GROUPS ?? "").split(",");
+
+    if (!isEmpty(groups)) {
+      logger.info(
+        `Filtering predictor groups based on the provided groups: ${groups}`
+      );
+    }
+
+    return flattenDeep(
+      isEmpty(groups)
+        ? predictorGroups
+        : map(groups, (group) => {
+            return filter(predictorGroups, (predictorGroup) =>
+              predictorGroup.id.includes(group)
+            );
+          })
+    );
   } catch (error) {
     logger.error(`Failed to fetch predictor groups! See the error bellow.`);
     logger.error(`${JSON.stringify(error)}`);

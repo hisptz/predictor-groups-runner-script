@@ -48,6 +48,7 @@ Environment variables can be set by creating `.env` file with contents similar a
 DHIS2_BASE_URL=<url-for-dhis2-instance>
 DHIS2_USERNAME=<dhis2-username>
 DHIS2_PASSWORD=<dhis2-password>
+PREDICTOR_GROUPS=<comma-separated-uids>
 ```
 
 ### Running the application
