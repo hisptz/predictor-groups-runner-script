@@ -2,6 +2,7 @@
 
 cp .env.example build/script/
 cp package.json build/script/
+cp runPredictors.sh build/script/
 cp build-readme.md build/script/README.md
 
 PKG_VERSION=$(node -p "require('./package.json').version")
