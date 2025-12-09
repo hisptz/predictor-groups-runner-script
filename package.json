@@ -11,6 +11,7 @@
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
     "luxon": "^3.3.0",
+    "nodemailer": "^7.0.11",
     "winston": "^3.8.2"
   },
   "scripts": {
@@ -24,6 +25,7 @@
     "@types/lodash": "^4.17.13",
     "@types/luxon": "^3.3.1",
     "@types/node": "^20.2.4",
+    "@types/nodemailer": "^7.0.4",
     "bestzip": "^2.2.1",
     "rimraf": "^5.0.1",
     "ts-loader": "^9.4.3",
