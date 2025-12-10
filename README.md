@@ -45,10 +45,16 @@ yarn install
 Environment variables can be set by creating `.env` file with contents similar as `.env.example` Or as shown below:
 
 ```
+#  DHIS2 Configuration
 DHIS2_BASE_URL=<url-for-dhis2-instance>
 DHIS2_USERNAME=<dhis2-username>
 DHIS2_PASSWORD=<dhis2-password>
 PREDICTOR_GROUPS=<comma-separated-uids>
+
+#  Email Configuration
+EMAIL_SENDER=<email-notification-sender>
+EMAIL_SENDER_PASSWORD=<sender-password>
+EMAIL_RECIPIENTS=<comma-separated-recipients>
 ```
 
 ### Running the application
