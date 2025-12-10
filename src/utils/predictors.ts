@@ -53,7 +53,7 @@ export async function runPredictorGroup(
   predictorGroup: PredictorGroup,
   startDate: string,
   endDate: string
-): Promise<void> {
+): Promise<string> {
   logger.info(
     `Generating predictions for ${predictorGroup.name} Group from ${startDate} to ${endDate}`
   );
@@ -65,16 +65,17 @@ export async function runPredictorGroup(
       logger.error(
         `Failed to generate the predictions! ${response?.data?.message ?? ""}`
       );
-      return;
+      return "Failed to generate predictions";
     }
-
     const message =
       response?.data?.message ?? "Successfully generated the predictions";
     logger.info(message);
+    return message;
   } catch (error) {
     logger.error(
       `Failed to run ${predictorGroup.name} group! See the error below.`
     );
     logger.error(`${JSON.stringify(error)}`);
+    return "Failed to generate predictions";
   }
 }
