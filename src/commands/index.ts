@@ -1,5 +1,4 @@
 import { Command } from "commander";
-import appDetails from "../../package.json";
 import logger from "../logging";
 import { printDHIS2Info } from "../clients/sysInfo";
 import {
@@ -35,9 +34,32 @@ program
         endDate
       );
     }
+
+    const evaluationResults: string[] = [];
+
     for (const { startDate, endDate } of dateIntervals) {
-      await initiatePredictorEvaluationProcess(startDate, endDate);
+      try {
+        const result = await initiatePredictorEvaluationProcess(
+          startDate,
+          endDate
+        );
+        result && evaluationResults.push(result);
+      } catch (error) {
+        logger.error(
+          `Failed to run predictor evaluation for period ${startDate} to ${endDate}`
+        );
+        logger.error(error);
+      }
     }
+
+    logger.info("Predictor data generation process completed.");
+
+    // send notification emails
+    await import("../utils/predictor-notifications").then(
+      async ({ sendNotifications }) => {
+        await sendNotifications(evaluationResults);
+      }
+    );
   });
 
 program
