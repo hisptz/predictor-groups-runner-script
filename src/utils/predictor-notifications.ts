@@ -6,11 +6,15 @@ config();
 export async function sendNotifications(
   evaluationResults: string[]
 ): Promise<void> {
+  const contextPath = process.env.INSTANCE_NAME ?? "DHIS2";
+
   const emailRecipients = process.env.EMAIL_RECIPIENTS;
   try {
     if (evaluationResults.length) {
       const finalHtml =
-        "<p>The predictor evaluation results are as follows:</p>" +
+        "<p>The predictor evaluation results on " +
+        contextPath +
+        " are as follows:</p>" +
         evaluationResults.join("<br/>");
       if (emailRecipients) {
         await import("../utils/email-notifications").then(
