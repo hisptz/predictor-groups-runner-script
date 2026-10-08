@@ -14,7 +14,7 @@ const program = new Command();
 program
   .command("generate")
   .description(
-    "Generate predictor data for all predictor groups monthly in the specified period range, or for the current month if no period range is specified."
+    "Generate predictor data for all predictor groups monthly in the specified period range, or for the current month if no period range is specified.",
   )
   .option("-s --startDate <startDate>", "Start date for script coverage")
   .option("-e --endDate <endDate>", "End date for script coverage")
@@ -31,7 +31,7 @@ program
     } else {
       dateIntervals = getDateIntervalsForPredictorEvaluation(
         startDate,
-        endDate
+        endDate,
       );
     }
 
@@ -41,12 +41,12 @@ program
       try {
         const result = await initiatePredictorEvaluationProcess(
           startDate,
-          endDate
+          endDate,
         );
         result && evaluationResults.push(result);
       } catch (error) {
         logger.error(
-          `Failed to run predictor evaluation for period ${startDate} to ${endDate}`
+          `Failed to run predictor evaluation for period ${startDate} to ${endDate}`,
         );
         logger.error(error);
       }
@@ -58,7 +58,7 @@ program
     await import("../utils/predictor-notifications").then(
       async ({ sendNotifications }) => {
         await sendNotifications(evaluationResults);
-      }
+      },
     );
   });
 
