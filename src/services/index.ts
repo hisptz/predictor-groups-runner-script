@@ -3,11 +3,14 @@ import {
   getDefaultLastDateForPredictorEvaluation,
   getDefaultStartDateForPredictorEvaluation,
 } from "../utils/date";
-import { getPredictorGroups, runPredictorGroup } from "../utils/predictors";
+import {
+  getPredictorGroups,
+  runPredictorsFromPredictorGroups,
+} from "../utils/predictors";
 
 export async function initiatePredictorEvaluationProcess(
   startDate?: string,
-  endDate?: string
+  endDate?: string,
 ): Promise<string | undefined> {
   const results: any[] = [];
   startDate = startDate ?? getDefaultStartDateForPredictorEvaluation();
@@ -17,16 +20,17 @@ export async function initiatePredictorEvaluationProcess(
   try {
     const predictorGroups = await getPredictorGroups();
     for (let predictorGroup of predictorGroups) {
-      const result = await runPredictorGroup(
+      const result = await runPredictorsFromPredictorGroups(
         predictorGroup,
         startDate,
-        endDate
+        endDate,
       );
       results.push({
         ...predictorGroup,
         result,
       });
     }
+
     let htmlTable = `<h3>Predictions Results from ${startDate} to ${endDate}</h3><table border="1" cellpadding="5" cellspacing="0">
       <tr>
         <th>ID</th>

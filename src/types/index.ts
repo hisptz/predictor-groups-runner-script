@@ -15,9 +15,15 @@ export interface OrgUnit {
   displayName: string;
 }
 
+export interface Predictor {
+  id: string;
+  name: string;
+}
+
 export interface PredictorGroup {
   id: string;
   name: string;
+  predictors: Predictor[];
 }
 
 export interface DateIntervals {
